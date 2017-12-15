@@ -1,0 +1,36 @@
+#!/bin/bash
+# located at $HOME/.i3/
+
+THIRD_THRESH=10
+SECOND_THRESH=20
+FIRST_THRESH=30
+
+FIRST_WARNING=0
+SECOND_WARNING=0
+THIRD_WARNING=0
+
+while [ true ]
+do
+BAT_LEVEL="$( cat /sys/class/power_supply/BAT0/capacity )"
+STATUS="$( cat /sys/class/power_supply/BAT0/status )"
+
+if [ ${BAT_LEVEL} -lt ${THIRD_THRESH} ] && [ ${STATUS} == "Discharging" ] && [ ${THIRD_WARNING} -eq 0 ]
+then
+  notify-send "Low Battery" "$( acpi -b )" -u critical -t 60000
+  THIRD_WARNING=1
+elif [ ${BAT_LEVEL} -lt ${SECOND_THRESH} ] && [ ${STATUS} == "Discharging" ] && [ ${SECOND_WARNING} -eq 0 ]
+then
+  notify-send "Low Battery" "$( acpi -b )" -u critical -t 60000
+  SECOND_WARNING=1
+elif [ ${BAT_LEVEL} -lt ${FIRST_THRESH} ] && [ ${STATUS} == "Discharging" ] && [ ${FIRST_WARNING} -eq 0 ]
+then
+  notify-send "Low Battery" "$( acpi -b )" -u critical -t 60000
+  FIRST_WARNING=1
+elif [ "${STATUS}" == "Charging" ]
+then
+  FIRST_WARNING=0
+  SECOND_WARNING=0
+  THIRD_WARNING=0
+fi
+sleep 1m
+done
