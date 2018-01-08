@@ -4,15 +4,18 @@
 # Should you change your keyboard layout somewhen, delete
 # this file and re-run i3-config-wizard(1).
 #
-
 # i3 config file (v4)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
+############################################################################################################################
+
+# MOD KEY
+
 # alt - 1 windows - 4
 set $mod Mod1
 
-
+############################################################################################################################
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
@@ -23,23 +26,61 @@ set $mod Mod1
 # chose a FreeType font, such as:
 font pango:DejaVu Sans Mono 24
 
+############################################################################################################################
+
+# FLOATING WINDOWS
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# toggle tiling / floating
+
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+
+bindsym $mod+space focus mode_toggle
+
+# Make the currently focused window a scratchpad
+
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+
+bindsym $mod+minus scratchpad show
+
+############################################################################################################################
+
+
+#BASIC COMMANDS 
+
 # start a terminal
+
 bindsym $mod+t exec i3-sensible-terminal
+
 #bindsym $mod+t exec gnome-terminal
 
 # kill focused window
 #bindsym $mod+q kill
+
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
+
 bindsym $mod+d exec dmenu_run
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# reload the configuration file
+
+bindsym $mod+Shift+c reload
+
+############################################################################################################################
+
+#PLAYING AROUND WITH WINDOWS AND NAVIGATION
 
 # change focus
 #bindsym $mod+j focus left
@@ -48,6 +89,7 @@ bindsym $mod+d exec dmenu_run
 #bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
+
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
@@ -60,6 +102,7 @@ bindsym $mod+Right focus right
 #bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
+
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
@@ -69,39 +112,42 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+h split h
 
 # split in vertical orientation
+
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
+
 bindsym $mod+f fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
+
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
-
 # focus the parent container
+
 bindsym $mod+a focus parent
 
 # focus the child container
+
 bindsym $mod+Shift+a focus child
 
+############################################################################################################################
+
+#WORKSPACES
+
 #workspace variables
-set $workspace1 "1 "
-set $workspace2 "2  "
-set $workspace3 "3 "
-set $workspace4 "4 "
-set $workspace5 "5 "
-set $workspace6 "6 "
-set $workspace7 "7 "
-set $workspace8 "8 "
-set $workspace9 "9 "
-set $workspace10 "0 :"
+set $workspace1 "1:&#xf002;"
+set $workspace2 "2:&#xf121;"
+set $workspace3 "3:&#xf1c1;"
+set $workspace4 "4:&#xf1c5;"
+set $workspace5 "5:&#xf108;"
+set $workspace6 "6:&#xf03d;"
+set $workspace7 "7:&#xf15b;"
+set $workspace8 "8:&#xf17e;"
+set $workspace9 "9:&#xf114;"
+set $workspace10 "0:&#xf198;"
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
@@ -130,12 +176,14 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 #Automatic back-and-forth when switching to the current workspace
 workspace_auto_back_and_forth yes
 
+############################################################################################################################
+
+#APPLICATIONS IN WORKSPACES 
+
 #forces the application to open in particular workspace
 #type "xprop" in terminal to find out the CLASS of the application
 #copy the second value of WM_CLASS(STRING) from the terminal
 #and paste it  [class="HERE"]
-
-
 
 #opens apps in the mentioned workspace
 
@@ -160,28 +208,32 @@ assign [class="libreoffice-calc"] $workspace7
 
 assign [class="Skype"] $workspace8
 
-assign [class="Dolphin"] $workspace9
+#assign [class="Dolphin"] $workspace9
 assign [class="Nautilus"] $workspace9
 
 assign [class="Slack"] $workspace10
 
-# Make the currently focused window a scratchpad
-bindsym $mod+Shift+minus move scratchpad
+############################################################################################################################
 
-# Show the first scratchpad window
-bindsym $mod+minus scratchpad show
+#LOCK REBOOT RESTART SHUTDOWN LOGOUT
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+x exec "i3-nagbar -t warning -m 'You want to exit i3?' -b 'Shutdown' 'sudo shutdown -h now' -b 'Reboot' 'sudo  reboot' -b 'Hibernate' 'sudo pm-hibernate' -b 'Suspend' 'sudo pm-suspend' -b 'Logout' 'i3-msg exit'"
-bindsym $mod+x exec $HOME/.i3/lock
+#bindsym $mod+Shift+x exec "i3-nagbar -t warning -m 'You want to exit i3?' -b 'Shutdown' 'sudo shutdown -h now' -b 'Reboot' 'sudo  reboot' -b 'Hibernate' 'sudo pm-hibernate' -b 'Suspend' 'sudo pm-suspend' -b 'Logout' 'i3-msg exit'"
 
-#Run Simplenote
-#bindsym $mod+z exec "/usr/share/simplenote/simplenote"
+bindsym $mod+Shift+r restart # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+
+bindsym $mod+Shift+l exec /home/kutti/.i3/lock.sh # lock
+
+bindsym $mod+Shift+u exec --no-startup-id i3-msg exit, mode "default" #logout
+
+bindsym $mod+Shift+x exec --no-startup-id  systemctl poweroff -i, mode "default" # shutdown
+
+bindsym $mod+Shift+b exec --no-startup-id systemctl reboot, mode "default" # reboot
+
+############################################################################################################################
+
+#RESIZE WINDOWS
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -191,12 +243,7 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
         bindsym Down resize grow height 10 px or 10 ppt
         bindsym Up resize shrink height 10 px or 10 ppt
@@ -209,9 +256,14 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+############################################################################################################################
+
+# BAR 
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+
 	#font xft:Droid Sans Mono, FontAwesome 19.5
 	font pango:DejaVu Sans Mono, FontAwesome 24
 	#strip_workspace_numbers yes
@@ -220,16 +272,16 @@ bar {
 	colors {
 	        background #000000
 	        statusline #ff00ff #that neon blue
-		#text 
+		#text
 	        separator #0000ff
 	        focused_workspace  #A60101 #A60101 #ffffff
 		#1 2 3 4 tab color using now red
 		active_workspace   #00ff00 #00ff00 #ffffff
-		# not working green 
+		# not working green
 	        inactive_workspace #4c0101 #4c0101 #ffffff
 		# opened ones that r not in use atm maroon
 	        urgent_workspace   #fc5902 #fc5902 #ffffff
-		# unseen workspaces orange
+		# unseen workspaces orangexz
 		#current #ff0000 #ff0000 #ffffff
 	}
 }
@@ -237,7 +289,11 @@ bar {
 
 #bar('mode', 'invisible')
 #wallpaper install feh (sudo apt-get install feh)
-#exec_always feh --bg-scale $HOME/Pictures/Mountain.jpg 
+#exec_always feh --bg-scale $HOME/Pictures/Mountain.jpg
+
+############################################################################################################################
+
+#EXEC ALWAYS COMMANDS
 
 #opens the apps at the start up
 # i3wm doesn't support opacity or fade effect  and compton helps it
@@ -252,6 +308,11 @@ exec --no-startup-id nm-applet
 #battery monitor
 exec $HOME/.i3/battery_monitor
 
+############################################################################################################################
+
+#BRIGHTNESS AND VOLUME
+
+# to know the keybindings use xmodmap -pke or xev
 
 # sound control bar
 exec_always volti
@@ -266,30 +327,33 @@ exec_always volti
 
 bindsym $mod+KP_6 exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym $mod+KP_4 exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym $mod+KP_5 exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
-
-# screenshot
-bindsym Print exec scrot ~/Downloads/Screenshot%Y-%m-%d%H:%M:%S.jpg
-bindsym $mod+Print exec scrot -u ~/Downloads/Screenshot%Y-%m-%d%H:%M:%S.jpg
-#bindsym $mod+Shift+Print exec scrot -s ~/Downloads/Screenshot%Y-%m-%d%H:%M:%S.jpg
 
 # Screen brightness controls
 #bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
 #bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
 
-bindsym $mod+KP_8 exec xbacklight -inc 10 # increase screen brightnes
-bindsym $mod+KP_2 exec xbacklight -dec 10 # decrease screen brightness
+bindsym $mod+KP_8 exec brightlight -i 10 # increase screen brightnes
+bindsym $mod+KP_2 exec brightlight -d 10 # decrease screen brightness
+
+############################################################################################################################
+
+#MISCELLANEOUS
 
 # Touchpad controls
 # bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
 
-# to know the keybindings use xmodmap -pke or xev
-
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+#bindsym XF86AudioPlay exec playerctl play
+#bindsym XF86AudioPause exec playerctl pause
+#bindsym XF86AudioNext exec playerctl next
+#bindsym XF86AudioPrev exec playerctl previous
+
+# screenshot
+bindsym Print exec scrot ~/Downloads/Screenshot%Y-%m-%d%H:%M:%S.jpg
+#bindsym $mod+Print exec scrot -u ~/Downloads/Screenshot%Y-%m-%d%H:%M:%S.jpg
+#bindsym $mod+Shift+Print exec scrot -s ~/Downloads/Screenshot%Y-%m-%d%H:%M:%S.jpg
 
 # Sound Tray Applet
 # exec gnome-sound-applet
