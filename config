@@ -52,7 +52,7 @@ bindsym $mod+minus scratchpad show
 ############################################################################################################################
 
 
-#BASIC COMMANDS 
+#BASIC COMMANDS
 
 # start a terminal
 
@@ -178,7 +178,7 @@ workspace_auto_back_and_forth yes
 
 ############################################################################################################################
 
-#APPLICATIONS IN WORKSPACES 
+#APPLICATIONS IN WORKSPACES
 
 #forces the application to open in particular workspace
 #type "xprop" in terminal to find out the CLASS of the application
@@ -231,6 +231,8 @@ bindsym $mod+Shift+x exec --no-startup-id  systemctl poweroff -i, mode "default"
 
 bindsym $mod+Shift+b exec --no-startup-id systemctl reboot, mode "default" # reboot
 
+bindsym $mod+Shift+s exec --no-startup-id systemctl suspend, mode "default" # suspend
+
 ############################################################################################################################
 
 #RESIZE WINDOWS
@@ -258,7 +260,7 @@ bindsym $mod+r mode "resize"
 
 ############################################################################################################################
 
-# BAR 
+# BAR
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -267,11 +269,11 @@ bar {
 	#font xft:Droid Sans Mono, FontAwesome 19.5
 	font pango:DejaVu Sans Mono, FontAwesome 24
 	#strip_workspace_numbers yes
-        status_command i3status
+        status_command i3blocks
 	position top
 	colors {
 	        background #000000
-	        statusline #ff00ff #that neon blue
+	        #statusline #ff00ff #that neon blue
 		#text
 	        separator #0000ff
 	        focused_workspace  #A60101 #A60101 #ffffff
@@ -340,6 +342,10 @@ bindsym $mod+KP_2 exec brightlight -d 10 # decrease screen brightness
 ############################################################################################################################
 
 #MISCELLANEOUS
+
+bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
+for_window [class="Yad"] floating enable move up 850px, move right 1680px 
 
 # Touchpad controls
 # bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
